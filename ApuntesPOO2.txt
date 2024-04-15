@@ -1,0 +1,257 @@
+Arquitectura software
+-Base de datos -> sql(Modelo Entidad-relacion) y nosql(mongodb)
+	-Mapeadores objeto relacional. -> para poder recuperar el objeto que necesito de la base de datos.
+	-El mapeador de Java -> hivernate
+
+
+|	  |___________|       |		     |             |
+|	  |	      |       |_____________>|             |
+|Clientes |___________|Backend|              |Base De datos|
+|	  |           |       |              |             |
+|	  |___________|       |              |             |
+
+
+
+
+Introduccion a Java::
+	-.jdk es el developemnt kit
+	-eclipse o intelligjalgo
+	-estaticamente tipado -> cuando una variable toma un tipo, esa variable no cambia el tipo
+	-Inicialmente orientado a objetos:
+		-Caracteristicas para que sea POO
+			-polimorfismo, bninding dinamico, clases, herencia etc, posibilidad de armar clases (existen algunos que no poseen clases)
+
+		- Que nos permita crear instancias a partir de una clase
+			-tienen atributos, comportamientos, protocolo
+				-que el protocolo es el conjuntonde mensajes que mi objeto responde y el comportamiento como logro eso utilizando los mensajes.
+	
+	-Las clases poseen todo el codigo (en su bloque)
+	-Los paquetes son para agrupar clases y se corresponden en el filesys (de lo mas general a lo mas especifico) (simil categorias en smalltalk).
+
+
+public private protected abstract
+package 	
+
+Java
+
+-------------compila en JDK
+class
+
+------------interprete JRE
+codMaq
+
+
+
+
+Dudas -> Constructor, si hago varios el de arriba se anula? 
+
+
+SRC y Test -> carpetas del proyecto.
+	-Junit -> utilzado par arealizr los test (VERSION 5)
+	-Se marcan con un @ arriba del metodo (se llamana anotaciones) @test
+	-Se testea asserteando como en smalltalk
+	-setUp -> doItForEach en Junit  (SE HACE UN SETUP POR CLASE)
+		-si declaro una variable de instancia para hacer el etest la tengo que declarar en el test no en el setup
+
+-----------------------------------------------------------------------------
+
+Generador {
+	private _instance
+	Bool existo = false
+	
+	public static getInstance(){
+
+		if(!existo) ->{instance = new Generador()
+				existo = true}
+
+
+
+return _instance
+}
+private Generador(){}
+
+
+}
+-----------------------------------------------------------------------------
+
+-- ######################-HERENCIA-#########################
+	-heredo todo los metodos de una clase (despues veo si se sobreescriben o no)
+	-la estructura se hereda si o si (no es posible redefinir el nombre del atributo)
+	-Me sirve para poder reutilizar codigo, entre otras cosas.
+Jerarquia VS Composicion
+															      |-----|>Fiat 147 
+Jerarqui, extends												 Auto --|> Audi s3
+composicion es distintas clases para lograr un componente Ej, de Auto -->Chasis
+                                                                   |---->Motor
+
+--Pueden existir las SuperClases Concretas, donde si se pueden instancias
+						Empleado <|---- extends ------- EmpleadoPlanta
+						    |<|-------- extends ------- EmpleadoAdmi
+	-Lo que pasa es que tengo ademas de admins y planta, empleados x- > que los puedo instanciar.
+	-NO tienen mensajes --ABSTRACTOS-- solo metodos concretos, se heredan todos.  Luego pueden sobrescribirse
+
+
+
+-- ######################-JERARQUIA-#########################
+
+					--Como surgen--
+
+Generalizacion
+	-Clases separadas -> se unifican por comportamientos y metodos similares
+				Entonces como son MUY similares -> Generaliszo
+
+Especializacion
+	-
+
+
+Method Lookup
+	A partir de la recepcion de un mensaje, como busco los metodos que tengo que implementar
+
+--######################-FIN REPASO-#########################
+
+
+
+Documentos
+	Expediente
+	certificado
+		
+		-comparten head, body y footer
+		-expediente tiene un numero en header
+		-certificado tiene un sello en el footer
+
+Printer
+
+
+Extension no intrusiva -> llega una nueva clase (Memo) que puede compartir comportamiento con sus cositas, y
+lo agrego como subclase del principal asi no tengo codigo repetido py puedo utilizar las
+Entonces, ahora me queda asi: 
+Documentos
+	Expediente
+	certificado
+	Memo          -----> y no me queda memo por separado ya que si tuviese que usar la impresora que imprime docmumentos
+						 no podria ya que la impresora solo imprime Documentos
+
+Printer(imprime solo DOCUMENTS (hasta ahora))
+
+
+----Ahora, si me lelga un tipo de archivo ej STICKER, y no comparte nada con documento Y NO ES un documento
+	como poder colgarlo de este, podria, pero no estaria bien ya que NO es un documento
+
+SOLUCION ->
+Crear una INTERFAZ-
+Define un protocolo, un contrato. Entre las diferentes clases, que entre si no tienen nada que ver, pero si comparten metodos (EJ print)
+Es una clase abstracta sin nada que me permite unir diferentes tipos de objetos en un mismo lugar por compartir un metodo 
+																																		IMPRIMIR
+
+				|<|-------Expediente
+Archivo <|--Documento <|--Certificado
+   |<|--------------------Sticker
+
+--De esta forma logro que a pesar que printer imprima archivos (SIN IMPORTAR que archivo.
+Antes solo podia imprimir DOCUMENTS, ahora puedo imprimir archivos)
+
+
+(ESTO DONDE TENGO QUE CREAR UNA SUPERCLASE ABSTRACTA PARA DIFERENTES TIPOS DE objetos
+	  ES PORQUE ME QUEDE CORTO A LA HORA DE TENER ABSTRACCION)
+
+Puedo tipar con una INTERFAZ. ej 
+
+printer {
+	print(printable arch){ -->Printable es una interfaz y no un tipo
+		arch.print();
+	}
+}
+
+Producto <|---Extends-------Producto Empresa
+    |
+	------<|--Extends-------Producto Coorpo
+
+
+Producto en si no se insantcia, pero, si tiene ej un colaborador interno que PE y PC comparten. 
+Entonces los puedo juntar en una superclase.
+Tambien tienen un metodo "getPrecio()" que el comportamiento en las instancias de PE y PC son diferentes
+
+Ahora, que pasa si Prod no tiene ningun metodo que hereden PE y PC no tengo idea.
+
+
+
+
+
+
+
+
+Fecha 15/04/24
+-- ###############################################################################################
+
+Protocolo -> conjunto de mensajes que puede entender un objeto (conjunto de asignaturas de metodos)
+			-se hace por fuera de una clase y luego se lleva a cabo en una clase
+			-No involucra implemntacion de codigo.
+
+
+Tipo-------> Asociar un nombre a un protocolo en especifico
+			-Le agrega semantica, decir, entender a traves de un nombre que me da ese protocolo o que hacen los metodos de esos protocolos
+			-Diferenciar objetos con /= protocolos
+			.No involucra implementecion de codigo.
+
+Subtipo----->Es un tipo que incluye un tipo respetando la semantica
+			-Ej- Collection, es subtipo de container
+			-Se puede corroborar si el subtipo T' corre con lo mismo de T.
+
+HerenciaRelTipos-->
+
+
+CUANDO SE APLICA JERARQUIA, ASEGURARSE QUE LA SUBCLASE TENGA TODO LO DE LA SUPERCLASE. 
+	->Garantizo que la jerarquia/herencia este bien hecha
+
+--####Tipados:####
+static  ->Chekeado en tiempo de compilacion.
+dynamic ->Chekeado en tiempo de ejecucion.
+binding dinamico- > se terminar de unificar una vez que va a ejecutar
+
+--¿¿¿¿¿¿¿¿¿¿Puede variar, estableciendo tipado, varios posibles tipos para una funcion que cumplen con lo que quiero hacer??????
+
+Principios SOLID
+S->Single responsibility = una clase debe tener una unica responsabilidad (SRP single responsibility principle)
+o->Open-Closed           = una clase dene estar abierta para la extension y no sobrescribir codigo una vex terminado (proteccion de lectura)
+	-no usar variables globales
+	-colab internos - PRIVADOS
+	-cumplir encapsulamiento
+	-rtti room time type inference- recibe una variable muy generico.
+		
+L->Liskow substitution   = objetos de un programa deberia poder ser reemplazado por instancias de subclases sin alterar el correcto funcionamiento
+I->Interfacce --
+D->----
+
+
+--AGREGAR 
+-CARACTERISTICAS DE LOS TIPADOS dynamic - static
+
+-DIAL-HANGUP.SENC.RECV -> Ejemplo MODEM
+		|->comunicacion de datos, y conexion
+					send receive       dial-hangup 
+
+-Casting downcasting - binding dinamico
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
