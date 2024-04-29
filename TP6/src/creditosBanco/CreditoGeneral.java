@@ -12,4 +12,8 @@ abstract class CreditoGeneral {
 		this.monto   = monto;
 		this.meses   = meses;
 	}
+	
+	public double getMonto(){
+		return this.monto;
+	}
 }
